@@ -6,6 +6,11 @@
 FROM mcr.microsoft.com/dotnet/sdk:10.0 AS build
 WORKDIR /src
 
+# Copy Central Package Management and Directory build properties
+COPY ["Directory.Packages.props", "./"]
+COPY ["Directory.Build.props", "./"]
+COPY ["NuGet.Config", "./"]
+
 # Copy project definition files for layer caching
 COPY ["src/MRPrintHub.Core/MRPrintHub.Core.csproj", "src/MRPrintHub.Core/"]
 COPY ["src/MRPrintHub.Security/MRPrintHub.Security.csproj", "src/MRPrintHub.Security/"]
