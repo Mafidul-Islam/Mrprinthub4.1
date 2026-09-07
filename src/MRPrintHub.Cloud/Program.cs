@@ -19,14 +19,19 @@ if (!string.IsNullOrWhiteSpace(envPort) && int.TryParse(envPort, out var port))
     builder.WebHost.UseUrls($"http://0.0.0.0:{port}");
 }
 
-// Database configuration (PostgreSQL with InMemory fallback for testing/dev)
-var rawConnectionString = builder.Configuration.GetConnectionString("DefaultConnection")
-                         ?? Environment.GetEnvironmentVariable("DATABASE_URL");
+// Database configuration (priority: DATABASE_URL env var -> ConnectionStrings:DefaultConnection -> InMemory fallback)
+var envDb = Environment.GetEnvironmentVariable("DATABASE_URL")
+            ?? Environment.GetEnvironmentVariable("ConnectionStrings__DefaultConnection");
+
+var rawConnectionString = !string.IsNullOrWhiteSpace(envDb)
+    ? envDb
+    : builder.Configuration.GetConnectionString("DefaultConnection");
+
 var connectionString = ResolvePostgreSqlConnectionString(rawConnectionString);
 
 builder.Services.AddDbContext<CloudDbContext>(options =>
 {
-    if (!string.IsNullOrEmpty(connectionString) && !builder.Environment.IsEnvironment("Testing"))
+    if (!string.IsNullOrWhiteSpace(connectionString) && !builder.Environment.IsEnvironment("Testing"))
     {
         options.UseNpgsql(connectionString);
     }
