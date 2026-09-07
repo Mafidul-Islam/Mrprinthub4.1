@@ -1,0 +1,60 @@
+@page
+@{
+    ViewData["Title"] = "Connect to Service";
+}
+
+<div class="container-fluid p-4">
+    <div class="row">
+        <div class="col-12">
+            <h1 class="mb-3">Connect to Service</h1>
+            
+            <div class="card mb-3">
+                <div class="card-body">
+                    <h5 class="card-title">Connect to MR Print Hub Service</h5>
+                    
+                    <div class="mb-3">
+                        <label class="form-label">Service URL</label>
+                        <input type="text" class="form-control" id="serviceUrl" value="http://localhost:5000" placeholder="http://localhost:5000">
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label class="form-label">IP Address</label>
+                        <input type="text" class="form-control" id="ipAddress" placeholder="192.168.1.100">
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label class="form-label">Port</label>
+                        <input type="number" class="form-control" id="port" value="5000" min="1" max="65535">
+                    </div>
+                    
+                    <button class="btn btn-primary w-100" onclick="attemptConnect()">
+                        Connect
+                    </button>
+                </div>
+            </div>
+            
+            <div id="connectStatus" class="mt-3"></div>
+        </div>
+    </div>
+</div>
+
+<script>
+function attemptConnect() {
+    const url = document.getElementById('serviceUrl').value || 'http://localhost:5000';
+    const ip = document.getElementById('ipAddress').value || '';
+    const port = document.getElementById('port').value || 5000;
+    
+    fetch('/api/status?ip=' + ip + '&port=' + port)
+        .then(response => response.json())
+        .then(data => {
+            document.getElementById('connectStatus').innerHTML = 
+                '<div class="alert alert-' + (data.status === 'Active' ? 'success' : 'danger') + '">' + 
+                (data.message || 'Status check complete') + 
+                '</div>';
+        })
+        .catch(error => {
+            document.getElementById('connectStatus').innerHTML = 
+                '<div class="alert alert-danger">Connection failed: ' + error.message + '</div>';
+        });
+}
+</script>

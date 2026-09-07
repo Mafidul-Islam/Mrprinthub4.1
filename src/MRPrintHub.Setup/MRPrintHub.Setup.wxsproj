@@ -1,0 +1,7 @@
+<Project Sdk="Microsoft.WindowsInstaller">
+  <PropertyGroup>
+    <ProductName>MR Print Hub</ProductName>
+    <OutputFile>MRPrintHub.Setup.msi</OutputFile>
+    <WindowsInstallerVersion>500</WindowsInstallerVersion>
+  </PropertyGroup>
+</Project>

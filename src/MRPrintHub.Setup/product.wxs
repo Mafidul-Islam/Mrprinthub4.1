@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix">
+
+  <Product
+    Name="MR Print Hub"
+    Id="*"
+    Language="1033"
+    Version="1.0.0"
+    Manufacturer="MR Print Hub Team"
+    UpgradeCode="{D37E8443-41BF-4E90-953B-2A0D84126B44}">
+
+    <!-- Package settings -->
+    <Package
+      InstallerVersion="200"
+      Languages="1033"
+      Compressed="yes"
+      SummaryCodepage="1033"
+      />
+
+    <!-- Application Icon definition -->
+    <Icon Id="MRPrintHub.ico" SourceFile="MRPrintHub.ico" />
+    <Property Id="ARPPRODUCTICON" Value="MRPrintHub.ico" />
+
+    <!-- Major Upgrade - allows overwriting installed versions -->
+    <Upgrade Id="{D37E8443-41BF-4E90-953B-2A0D84126B44}">
+      <UpgradeVersion
+        Minimum="1.0.0"
+        OnlyDetect="no"
+        ChangeVersion="yes"
+      />
+    </Upgrade>
+
+    <!-- Display Information -->
+    <Property Id="ARPHELPLINK" Value="https://github.com/mrprinthub"/>
+
+    <Directory Id="TARGETDIR" Name="SourceDir">
+      <Directory Id="ProgramFiles64Folder">
+        <Directory Id="INSTALLDIR" Name="MR Print Hub">
+
+          <!-- Windows Service Files -->
+          <Directory Id="ServiceFolder" Name="Service">
+          </Directory>
+
+          <!-- Desktop App Files -->
+          <Directory Id="DesktopFolder" Name="Desktop">
+          </Directory>
+
+          <Directory Id="ApplicationDataFolder" Name="Application Data">
+            <Directory Id="MRPrintHubData" Name="MR Print Hub">
+            </Directory>
+          </Directory>
+
+        </Directory>
+      </Directory>
+    </Directory>
+
+    <!-- Features -->
+    <Feature Id="Complete" Title="MR Print Hub Complete" Level="1">
+      <ComponentGroupRef Id="ServiceComponents" />
+      <ComponentGroupRef Id="DesktopComponents" />
+    </Feature>
+
+    <!-- Windows Service Installation -->
+    <ComponentGroup Id="ServiceComponents" Direction="install">
+      <Component Id="ServiceComponent" Guid="*">
+
+        <!-- Service executable -->
+        <File
+          Id="ServiceExe"
+          Source="..\..\src\MRPrintHub.Service\bin\Debug\net10.0-windows\MRPrintHub.Service.exe"
+          KeyPath="yes"
+          />
+
+        <!-- Service installation -->
+        <ServiceInstall
+          Id="ServiceInstall"
+          Name="MR Print Hub Service"
+          DisplayName="MR Print Hub Service"
+          Description="MR Print Hub - Direct Mobile-to-PC Print System"
+          Start="auto"
+          ErrorControl="normal"
+          Type="ownProcess"
+          Account="LocalSystem"
+          />
+
+        <!-- Service control -->
+        <ServiceControl
+          Id="ServiceControl"
+          Name="MR Print Hub Service"
+          Start="install"
+          Stop="both"
+          Remove="uninstall"
+          />
+
+      </Component>
+    </ComponentGroup>
+
+    <!-- Desktop App Shortcuts -->
+    <ComponentGroup Id="DesktopComponents" Direction="install">
+      <Component Id="DesktopAppComponent" Guid="*">
+        <!-- Main Desktop shortcut -->
+        <Shortcut
+          Id="MainDesktopShortcut"
+          Name="MR Print Hub"
+          Description="MR Print Hub Mobile-to-PC Print System"
+          Target="[INSTALLDIR]MRPrintHub.Desktop.exe"
+          Icon="MRPrintHub.ico"
+          />
+
+        <!-- Start Menu shortcuts -->
+        <RegistryValue
+          Root="HKLM"
+          Key="Software\Microsoft\Windows\CurrentVersion\Uninstall\MR Print Hub"
+          Action="write"
+          Name="DisplayName"
+          Value="MR Print Hub"
+          />
+        <RegistryValue
+          Root="HKLM"
+          Key="Software\Microsoft\Windows\CurrentVersion\Uninstall\MR Print Hub"
+          Action="write"
+          Name="DisplayIcon"
+          Value="[INSTALLDIR]MRPrintHub.Desktop.exe"
+          />
+      </Component>
+    </ComponentGroup>
+  </Product>
+</Wix>

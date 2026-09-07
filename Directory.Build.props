@@ -1,0 +1,9 @@
+<Project>
+  <PropertyGroup>
+    <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
+    <CentralPackageTransitivePinningEnabled>true</CentralPackageTransitivePinningEnabled>
+    <RepositoryRoot>$(MSBuildThisFileDirectory)</RepositoryRoot>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <NoWarn>$(NoWarn);NU1605;CA1416;CA1414;CA1822;SYSLIB0011;SYSLIB0014;CS1591</NoWarn>
+  </PropertyGroup>
+</Project>

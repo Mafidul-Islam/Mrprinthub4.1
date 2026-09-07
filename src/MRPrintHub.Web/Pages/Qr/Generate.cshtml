@@ -1,0 +1,90 @@
+@page
+@{
+    ViewData["Title"] = "Generate QR Code";
+}
+
+<div class="container-fluid p-4">
+    <div class="row">
+        <div class="col-12">
+            <h1 class="mb-3">Generate QR Code</h1>
+            
+            <div class="card mb-3">
+                <div class="card-body">
+                    <h5 class="card-title">QR Code Configuration</h5>
+                    
+                    <div class="row mb-3">
+                        <div class="col-12 col-md-6 mb-2">
+                            <label class="form-label">IP Address</label>
+                            <input type="text" class="form-control" id="qrIp" value="127.0.0.1" placeholder="192.168.1.100">
+                        </div>
+                        <div class="col-12 col-md-6 mb-2">
+                            <label class="form-label">Port</label>
+                            <input type="number" class="form-control" id="qrPort" value="5000" min="1" max="65535">
+                        </div>
+                    </div>
+                    
+                    <div class="row mb-3">
+                        <div class="col-12 col-md-6 mb-2">
+                            <label class="form-label">Session Token</label>
+                            <input type="text" class="form-control" id="qrToken" placeholder="auto-generated">
+                        </div>
+                        <div class="col-12 col-md-6 mb-2">
+                            <button class="btn btn-outline-secondary w-100" onclick="generateToken()">Generate Token</button>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label class="form-label">QR URL</label>
+                        <input type="text" class="form-control" id="qrUrl" readonly>
+                    </div>
+                    
+                    <button class="btn btn-success w-100 mt-3" onclick="generateQr()">
+                        Generate QR Code
+                    </button>
+                </div>
+            </div>
+            
+            <div id="qrResult" class="mt-4"></div>
+        </div>
+    </div>
+</div>
+
+<script>
+function generateToken() {
+    fetch('/api/token')
+        .then(response => response.json())
+        .then(data => {
+            document.getElementById('qrToken').value = data.token || '';
+        })
+        .catch(error => {
+            alert('Failed to generate token: ' + error.message);
+        });
+}
+
+function generateQr() {
+    const ip = document.getElementById('qrIp').value;
+    const port = document.getElementById('qrPort').value;
+    const token = document.getElementById('qrToken').value;
+    
+    if (!ip || !token) {
+        alert('Please enter IP address and token');
+        return;
+    }
+    
+    const url = `http://${ip}:${port}/u/${token}`;
+    document.getElementById('qrUrl').value = url;
+    
+    document.getElementById('qrResult').innerHTML = `
+        <div class="card">
+            <div class="card-body">
+                <h5>QR Code URL:</h5>
+                <p class="mt-2"><code>${url}</code></p>
+                <p>Scan this URL with your mobile device or use the QR code generator.</p>
+                <button class="btn btn-sm mt-2" onclick="navigator.clipboard.writeText('${url}')">
+                    Copy URL
+                </button>
+            </div>
+        </div>
+    `;
+}
+</script>

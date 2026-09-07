@@ -1,0 +1,65 @@
+@page
+@model IndexModel
+@{
+    ViewData["Title"] = "MR Print Hub";
+}
+
+<div class="container-fluid p-4">
+    <div class="row">
+        <div class="col-12">
+            <h1 class="mb-3">MR Print Hub</h1>
+            <p class="lead">Session-based printing system</p>
+            
+            <div class="card mt-4">
+                <div class="card-body">
+                    <h5 class="card-title">Quick Start</h5>
+                    <ol class="list-group list-group-numbered">
+                        <li class="list-group-item">
+                            <strong>Connect</strong> to the Print Hub service
+                        </li>
+                        <li class="list-group-item">
+                            <strong>Generate</strong> a QR code for your session
+                        </li>
+                        <li class="list-group-item">
+                            <strong>Upload</strong> files to your session
+                        </li>
+                        <li class="list-group-item">
+                            <strong>View</strong> upload history and status
+                        </li>
+                    </ol>
+                </div>
+            </div>
+            
+            <hr class="my-4"/>
+            
+            <div class="row">
+                <div class="col-12 col-md-6 mb-3">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5>Session Status</h5>
+                        </div>
+                        <div class="card-body">
+                            <p>Connect to an existing session or create a new one.</p>
+                            <button class="btn btn-primary w-100" onclick="window.location.href='/session/connect'">
+                                Connect to Service
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-md-6 mb-3">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5>Generate QR Code</h5>
+                        </div>
+                        <div class="card-body">
+                            <p>Generate a QR code to share your print session.</p>
+                            <button class="btn btn-success w-100" onclick="window.location.href='/qr/generate'">
+                                Generate QR Code
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,55 @@
+# Build outputs
+bin/
+obj/
+*.dll
+*.pdb
+*.exe
+*.dll
+*.deps.json
+*.xml
+
+# NuGet
+*.nupkg
+packages/
+
+# IDE
+.vs/
+*.csproj.user
+*.suo
+*.user
+*.cache
+
+# Test results
+TestResults/
+*.trx
+*.coveragexml
+
+# Temp
+tmp/
+*.tmp
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Debug
+*.pdb
+*.ilk
+
+# EF
+*.db
+*.db-shm
+*.db-wal
+*.sqlite
+*.sqlite-journal
+
+# Logs
+*.log
+
+# User secrets & runtime storage
+secrets.json
+usersecrets.json
+cloud_credentials.json
+TempCloudStorage/
+Received/
+dist/

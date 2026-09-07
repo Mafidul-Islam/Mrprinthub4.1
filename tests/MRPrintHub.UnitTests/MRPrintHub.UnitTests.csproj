@@ -1,0 +1,22 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <IsTestProject>true</IsTestProject>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="xunit" />
+    <PackageReference Include="xunit.runner.visualstudio" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\MRPrintHub.Core\MRPrintHub.Core.csproj" />
+    <ProjectReference Include="..\..\src\MRPrintHub.Database\MRPrintHub.Database.csproj" />
+    <ProjectReference Include="..\..\src\MRPrintHub.Security\MRPrintHub.Security.csproj" />
+    <ProjectReference Include="..\..\src\MRPrintHub.Network\MRPrintHub.Network.csproj" />
+    <ProjectReference Include="..\..\src\MRPrintHub.QR\MRPrintHub.QR.csproj" />
+    <ProjectReference Include="..\..\src\MRPrintHub.Cloud\MRPrintHub.Cloud.csproj" />
+  </ItemGroup>
+</Project>

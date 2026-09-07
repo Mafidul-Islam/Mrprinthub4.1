@@ -1,0 +1,19 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/MRPrintHub.Cloud/MRPrintHub.Cloud.csproj" />
+    <Project Path="src/MRPrintHub.Core/MRPrintHub.Core.csproj" />
+    <Project Path="src/MRPrintHub.Database/MRPrintHub.Database.csproj" />
+    <Project Path="src/MRPrintHub.Desktop/MRPrintHub.Desktop.csproj" />
+    <Project Path="src/MRPrintHub.Network/MRPrintHub.Network.csproj" />
+    <Project Path="src/MRPrintHub.QR/MRPrintHub.QR.csproj" />
+    <Project Path="src/MRPrintHub.Security/MRPrintHub.Security.csproj" />
+    <Project Path="src/MRPrintHub.Server/MRPrintHub.Server.csproj" />
+    <Project Path="src/MRPrintHub.Service/MRPrintHub.Service.csproj" />
+    <Project Path="src/MRPrintHub.Storage/MRPrintHub.Storage.csproj" />
+    <Project Path="src/MRPrintHub.Web/MRPrintHub.Web.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/MRPrintHub.IntegrationTests/MRPrintHub.IntegrationTests.csproj" />
+    <Project Path="tests/MRPrintHub.UnitTests/MRPrintHub.UnitTests.csproj" />
+  </Folder>
+</Solution>
